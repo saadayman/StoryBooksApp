@@ -1,0 +1,45 @@
+<p>Dashboard</p>
+<h1>Hello {{name}}</h1>
+
+
+
+{{#if stories}}
+<p>Here are your stories</p>
+     <table class="stripe">
+        <thead>
+          <tr>
+             <th>Title</th>
+            <th>Date</th>
+            <th>Status</th>
+             <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+         
+            {{#each stories}}
+                <tr>
+                    <td> <a href="/stories/{{_id}}">{{title}}</a> </td>
+                    <td>{{formateDate createdAt 'MMMM Do YYYY,h:mm:ss a'}}</td>
+                    <td><span class="dash-status">{{status}}</span></td>
+                    <td>
+                        <a href="/stories/edit/{{_id}}" class="btn btn-float"><i class="fa fa-edit"></i></a>
+                         <button type="button" class="btn red show-modal-btn" data-storyID="{{_id}}"><i class="fas fa-trash"  data-storyID="{{_id}}"></i></button>
+                      <div class="form-container">
+                          <form action="/stories/{{_id}}" method="POST" id="delete-form" class="delete-form" data-storyID="{{_id}}">
+                            <p>Are you sure you want to remove this story? </p>
+                            <input type="hidden" name="_method" value="DELETE">
+                             <button type="submit" class="btn green">Yes</button>
+                            <a href="/dashboard" class="btn red">No</a>
+                        </form>
+                      </div>
+                        
+                    </td>
+                </tr>
+                {{/each}}
+        </tbody>
+      </table>
+{{else}}
+<h4>No stories yet</h4>
+
+{{/if}}
